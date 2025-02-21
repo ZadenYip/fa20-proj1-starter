@@ -79,7 +79,23 @@ Color *evaluateOneCell(Image *image, int row, int col, uint32_t rule)
 //You should be able to copy most of this from steganography.c
 Image *life(Image *image, uint32_t rule)
 {
-	//YOUR CODE HERE
+	Image *new_image = malloc(sizeof(Image));
+	/* Init */
+	new_image->cols = image->cols;
+	new_image->rows = image->rows;
+	new_image->image = malloc(sizeof(Color *) * new_image->rows);
+	for (int i = 0; i < new_image->rows; i++) {
+		new_image->image[i] = malloc(sizeof(Color) * new_image->cols);
+	}
+
+	for (int row = 0; row < new_image->rows; row++) {
+		for (int col = 0; col < new_image->cols; col++) {
+			Color* color = evaluateOneCell(image, row, col, rule);
+			new_image->image[row][col] = *color;
+			free(color);
+		}
+	}
+	return new_image;
 }
 
 /*
