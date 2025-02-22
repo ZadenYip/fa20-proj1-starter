@@ -115,7 +115,23 @@ You may find it useful to copy the code from steganography.c, to start.
 */
 int main(int argc, char **argv)
 {
-	//YOUR CODE HERE
+	if (argc != 3) {
+		printf("Error: invalid number of arguments\n");
+		exit(-1);
+	}
+	char *filename = argv[1];
+	char *rule_str = argv[2];
+	uint32_t rule = strtol(rule_str, NULL, 16);
+	Image *image = readData(filename);
+	if (image == NULL) {
+		printf("Error: readData failed\n");
+		exit(-1);
+	}
+	Image *new_image = life(image, rule);
+	writeData(new_image);
+	freeImage(image);
+	freeImage(new_image);
+	return 0;
 }
 
 uint8_t transform_negative_index(int index, int size) {
