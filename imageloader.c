@@ -42,7 +42,7 @@ Image *readData(char *filename)
 	image->cols = (uint32_t) cols;
 	image->rows = (uint32_t) rows;
 	image->image = malloc(sizeof(Color *) * rows);
-	for (int i = 0; i < cols; i++) {
+	for (int i = 0; i < rows; i++) {
 		image->image[i] = malloc(sizeof(Color) * cols);
 	}
 
